@@ -7,7 +7,7 @@ GITBRANCH=$(git rev-parse --abbrev-ref HEAD)
 GITSUMMARY=$(git describe --tags --dirty --always)
 
 IN_FILE=resources/templates/version.tmpl.clj
-OUT_FILE=src/clj/hxgm30/dice/version.clj
+OUT_FILE=src/clj/hxgm30/proto/buf/version.clj
 
 echo "Updating '$OUT_FILE' ..."
 

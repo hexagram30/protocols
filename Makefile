@@ -1,9 +1,12 @@
 VERSION = $(lastword $(subst ",, $(shell grep defproject project.clj)))
 
-default: all
+default: jvm
 
-all: lint test build clojure-version
+jvm: clojure-version
 	@lein build
+
+all: clean protoc-gen lint test build jvm
+	
 
 #############################################################################
 ###   Clojure Support   #####################################################
@@ -17,7 +20,9 @@ clojure-version:
 #############################################################################
 
 PROTOBUF_SRC = src/proto
-PROTOBUF_GO = src/golang/api
+PROTOBUF_GO = src/golang/common
+# PROTOBUF_SRC = src/pb
+# PROTOBUF_GO = $(PROTOBUF_SRC)
 PROTOBUF_JAVA = src/java/
 GRADLE_GRPC_DIR = $(PROTOBUF_JAVA)/main
 GRADLE_JAVA_DIR = $(GRADLE_GRPC_DIR)/java
@@ -35,17 +40,24 @@ java-deps:
 	@brew install gradle
 	@gradle wrapper --gradle-version 6.0.1
 
+clean: clean-protobuf
+	@lein clean
+
 protoc-gen: clean-protobuf protoc-gen-go protoc-gen-java
 
-protoc-gen-go: go-deps $(PROTOBUF_GO)/*.pb.go
+protoc-gen-go: go-deps $(PROTOBUF_GO) $(PROTOBUF_GO)/*.pb.go
+
+$(PROTOBUF_GO):
+	@mkdir -p $(PROTOBUF_GO)
+
+$(PROTOBUF_GO)/%.pb.go: $(PROTOBUF_SRC)/%.proto
+	@protoc -I $(PROTOBUF_SRC) --go_out=plugins=grpc:$(PROTOBUF_GO) $<
+
 protoc-gen-java: java-deps
 	@./gradlew build
 	@cp -r $(GRADLE_GRPC_DIR)/* $(PROTOBUF_JAVA)/
 	@cp -r $(GRADLE_JAVA_DIR)/* $(PROTOBUF_JAVA)/
 	@rm -rf $(GRADLE_JAVA_DIR) $(GRADLE_GRPC_DIR) $(PROTOBUF_JAVA)/test $(GRADLE_BUILD_DIR) $(PROTOBUF_JAVA)/java
-
-$(PROTOBUF_GO)/%.pb.go: $(PROTOBUF_SRC)/%.proto
-	@protoc -I $(PROTOBUF_SRC) --go_out=plugins=grpc:$(PROTOBUF_GO) $<
 
 $(PROTOBUF_JAVA)/%.java: $(PROTOBUF_SRC)/%.proto
 	@mkdir -p $(PROTOBUF_JAVA)
@@ -223,4 +235,4 @@ list:
 	awk -v RS= -F: '/^# File/,/^# Finished Make data base/ {if ($$1 !~ "^[#.]") {print $$1}}' | \
 	sort | egrep -v -e '^[^[:alnum:]]' -e '^$@$$'
 
-.PHONY: default build go-travis test lint
+.PHONY: default build go-travis test lint jvm all
