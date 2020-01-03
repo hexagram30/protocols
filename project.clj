@@ -15,9 +15,9 @@
        ns
        "\u001B[35m]\u001B[33m λ\u001B[m=> "))
 
-(defproject hexagram30/dice "0.1.3-SNAPSHOT"
-  :description "An entropy manager, random number generator/seed tracker, and dice-roller for hexagram30 projects"
-  :url "https://github.com/hexagram30/dice"
+(defproject hexagram30/protocols "0.1.0-SNAPSHOT"
+  :description "Common protobuf protocol definitions and their generated code"
+  :url "https://github.com/hexagram30/protocols"
   :license {
     :name "Apache License, Version 2.0"
     :url "http://www.apache.org/licenses/LICENSE-2.0"}
@@ -31,22 +31,13 @@
     [org.clojure/core.incubator "0.1.4"]
     [org.clojure/core.rrb-vector "0.1.1"]
     ;; Regular dependencies
-    [clojusc/system-manager "0.3.0"]
     [clojusc/twig "0.4.1"]
     [com.google.protobuf/protobuf-java-util "3.11.1"]
     [hexagram30/common "0.1.0-SNAPSHOT"]
-    [io.grpc/grpc-netty "1.26.0"]
-    [io.grpc/grpc-protobuf "1.26.0"]
-    [io.grpc/grpc-stub "1.26.0"]
     [javax.annotation/javax.annotation-api "1.3.2"]
     [org.clojure/clojure "1.10.1"]]
-  :plugins [
-    [org.xolstice.maven.plugins/protobuf-maven-plugin "0.6.1"]]
-  :source-paths ["src/clj" "src/cljc"]
+  :source-paths ["src/clj"]
   :java-source-paths ["src/java"]
-  :aot [
-    hxgm30.dice.grpc.api
-  ]
   :profiles {
     :ubercompile {
       :aot :all}
@@ -57,15 +48,12 @@
       :plugins [
         [lein-shell "0.5.0"]
         [org.clojure/core.rrb-vector "0.1.1"]]
-      :source-paths ["dev-resources/src"]
-      :main hxgm30.dice.core}
+      :source-paths ["dev-resources/src"]}
     :lint {
       :source-paths ^:replace ["src"]
       :test-paths ^:replace []
       :plugins [
-        [jonase/eastwood "0.3.6"]
         [lein-ancient "0.6.15"]
-        [lein-bikeshed "0.5.2"]
         [lein-kibit "0.1.8"]]}
     :repl {
       :repl-options {
@@ -97,11 +85,8 @@
       ["check-jars"]
       ["check-vers"]]
     "kibit" ["with-profile" "+lint" "kibit"]
-    "eastwood" ["with-profile" "+lint" "eastwood" "{:namespaces [:source-paths]}"]
     "lint" ["do"
-      ["kibit"]
-      ; ["eastwood"]
-      ]
+      ["kibit"]]
     "ltest" ["with-profile" "+test" "ltest"]
     "ltest-clean" ["do"
       ["clean"]
@@ -113,7 +98,4 @@
       ["ltest" ":all"]
       ["ubercompile"]
       ["clean"]
-      ["uberjar"]]
-    ;; Script Aliases
-    "run" ["with-profile" "+server" "run"]
-    "roll" ["run"]})
+      ["uberjar"]]})

@@ -1,4 +1,4 @@
-module github.com/hexagram30/dice
+module github.com/hexagram30/protocols
 
 go 1.12
 

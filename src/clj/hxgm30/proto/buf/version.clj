@@ -1,10 +1,10 @@
 (ns hxgm30.proto.buf.version)
 
-(def version "%%VERSION%%")
-(def build-date "%%BUILDDATE%%")
-(def git-commit "%%GITCOMMIT%%")
-(def git-branch "%%GITBRANCH%%")
-(def git-summary "%%GITSUMMARY%%")
+(def version "0.1.0-SNAPSHOT")
+(def build-date "2020-01-03T22:19:27Z")
+(def git-commit "f7e3044")
+(def git-branch "feature/9/dice-roll-api")
+(def git-summary "f7e3044-dirty")
 
 (defn build-info
   []
