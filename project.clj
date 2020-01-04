@@ -15,7 +15,7 @@
        ns
        "\u001B[35m]\u001B[33m λ\u001B[m=> "))
 
-(defproject hexagram30/protocols "0.1.0-SNAPSHOT"
+(defproject hexagram30/protocols "0.1.1-SNAPSHOT"
   :description "Common protobuf protocol definitions and their generated code"
   :url "https://github.com/hexagram30/protocols"
   :license {
