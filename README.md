@@ -1,8 +1,10 @@
 # hexagram30/protocols
 
+[![][logo]][logo-large]
+
 *Common protobuf protocol definitions and their generated code*
 
-[![][logo]][logo-large]
+
 
 ## Use
 
