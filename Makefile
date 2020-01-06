@@ -6,7 +6,7 @@ jvm: clojure-version
 	@lein build
 
 all: clean protoc-gen lint test build jvm
-	
+
 
 #############################################################################
 ###   Clojure Support   #####################################################
@@ -21,8 +21,6 @@ clojure-version:
 
 PROTOBUF_SRC = src/proto
 PROTOBUF_GO = src/golang/common
-# PROTOBUF_SRC = src/pb
-# PROTOBUF_GO = $(PROTOBUF_SRC)
 PROTOBUF_JAVA = src/java/
 GRADLE_GRPC_DIR = $(PROTOBUF_JAVA)/main
 GRADLE_JAVA_DIR = $(GRADLE_GRPC_DIR)/java
@@ -58,12 +56,6 @@ protoc-gen-java: java-deps
 	@cp -r $(GRADLE_GRPC_DIR)/* $(PROTOBUF_JAVA)/
 	@cp -r $(GRADLE_JAVA_DIR)/* $(PROTOBUF_JAVA)/
 	@rm -rf $(GRADLE_JAVA_DIR) $(GRADLE_GRPC_DIR) $(PROTOBUF_JAVA)/test $(GRADLE_BUILD_DIR) $(PROTOBUF_JAVA)/java
-
-$(PROTOBUF_JAVA)/%.java: $(PROTOBUF_SRC)/%.proto
-	@mkdir -p $(PROTOBUF_JAVA)
-	@protoc -I $(PROTOBUF_SRC) \
-		--plugin=protoc-gen-grpc-java=~/.m2/repository/io/grpc/protoc-gen-grpc-java/1.26.0 \
-		--java_out=$(PROTOBUF_JAVA) $<
 
 clean-protobuf:
 	@rm -f $(PROTOBUF_JAVA)/*.java $(PROTOBUF_GO)/*.pb.go
