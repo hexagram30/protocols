@@ -1,10 +1,10 @@
 (ns hxgm30.proto.buf.version)
 
 (def version "0.2.0")
-(def build-date "2020-01-06T03:37:19Z")
-(def git-commit "d892e96")
+(def build-date "2020-01-06T05:44:09Z")
+(def git-commit "658ce70")
 (def git-branch "master")
-(def git-summary "v0.1.1-SNAPSHOT-2-gd892e96-dirty")
+(def git-summary "v0.2.0-dirty")
 
 (defn build-info
   []

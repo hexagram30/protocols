@@ -6,6 +6,22 @@ option java_outer_classname = "CommonProto";
 
 package common;
 
+// GenericData ...
+message GenericData {
+  string data = 1;
+}
+
+// HealthRequest ...
+message HealthRequest {
+  string data = 1;
+}
+
+// HealthReply ...
+message HealthReply {
+  string components = 1;
+  string errors = 2;
+}
+
 // PingRequest ...
 message PingRequest {
     string data = 1;
