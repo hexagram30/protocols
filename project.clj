@@ -15,7 +15,7 @@
        ns
        "\u001B[35m]\u001B[33m λ\u001B[m=> "))
 
-(defproject hexagram30/protocols "0.1.1-SNAPSHOT"
+(defproject hexagram30/protocols "0.2.0"
   :description "Common protobuf protocol definitions and their generated code"
   :url "https://github.com/hexagram30/protocols"
   :license {
@@ -33,7 +33,7 @@
     ;; Regular dependencies
     [clojusc/twig "0.4.1"]
     [com.google.protobuf/protobuf-java-util "3.11.1"]
-    [hexagram30/common "0.1.0-SNAPSHOT"]
+    [hexagram30/common "0.2.0"]
     [javax.annotation/javax.annotation-api "1.3.2"]
     [org.clojure/clojure "1.10.1"]]
   :source-paths ["src/clj"]
